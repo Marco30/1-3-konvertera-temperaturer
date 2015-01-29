@@ -27,11 +27,11 @@
 
                 <!-- Validering: Kontrollerar om textboxsen är tom-->
                 <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Starttemperatur är tomt"
-                    ControlToValidate="StartTempBox" Display="Dynamic"></asp:RequiredFieldValidator>
+                    ControlToValidate="StartTempBox" Display="None"></asp:RequiredFieldValidator>
 
                 <!-- Validering: Kontrollerar om det in matade värdet är int/heltal-->
                 <asp:CompareValidator ID="CompareValidator1" runat="server" ErrorMessage="Starttemperatur måste vara ett heltal" ControlToValidate="StartTempBox"
-                    Type="Integer" Operator="DataTypeCheck" Display="Dynamic"></asp:CompareValidator>
+                    Type="Integer" Operator="DataTypeCheck" Display="None"></asp:CompareValidator>
             </p>
 
             <p>
@@ -50,6 +50,55 @@
                     ControlToValidate="EndTempBox" Type="Integer" Operator="GreaterThan" ControlToCompare="StartTempBox" Display="None"></asp:CompareValidator>
 
             </p>
+
+            <p>
+                <!--Rubrik för textruta-->
+                <asp:Label ID="TempIntervalLabel" runat="server" Text="Temperatursteg:"></asp:Label><br />
+
+                <!--Stegtemperaturtextruta-->
+                <asp:TextBox ID="TempIntervalBox" runat="server"></asp:TextBox><br />
+
+                <!-- Validering: Kontrollerar om textboxsen är tom-->
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ErrorMessage="Temperaturstegs är tomt"
+                    ControlToValidate="TempIntervalBox" Display="None"></asp:RequiredFieldValidator>
+
+                <!-- Validering: Kontrollerar om det in matade värdet är ett värde mellan 1-100-->
+                <asp:RangeValidator ID="RangeValidator1" runat="server" ControlToValidate="TempIntervalBox" Type="Integer"
+                    ErrorMessage="Temperatursteget måste ligga mellan 1 och 100" MaximumValue="100" MinimumValue="1" Display="None"></asp:RangeValidator>
+            </p>
+
+            <div id="konvert">
+                <!--Rubrik för textruta-->
+                <asp:Label ID="ConvertTitleLabel" runat="server" Text="val av konvertering"></asp:Label>
+
+                <!--Konverteringsval-->
+                <p>
+                    <asp:RadioButton ID="CToFButton" runat="server" GroupName="Radiogroup" Text="Celsius till Fahrenheit" Checked="True" />
+                </p>
+                <p>
+                    <asp:RadioButton ID="FToCButton" runat="server" GroupName="Radiogroup" Text="Fahrenheit till Celsius" />
+                </p>
+            </div>
+
+            <!--knap-->
+            <p>
+                <asp:Button ID="SendButton" runat="server" Text="Konvertera" OnClick="SendButton_Click" /><br />
+            </p>
+
+            <!-- Valideringsfelmeddelanden-->
+            <p>
+                <asp:ValidationSummary ID="ValidationSummary1" runat="server" HeaderText="Fel inträffade! Åtgärda felen och försök igen." />
+            </p>
+
+            <!-- Temperatur Resultat tabellen-->
+            <div id="tabellen">
+                <asp:Table ID="ConvTempTable" runat="server" Visible="false">
+                    <asp:TableHeaderRow ID="tableheader">
+                        <asp:TableHeaderCell ID="HeaderCell1" Text="°C"></asp:TableHeaderCell>
+                        <asp:TableHeaderCell ID="HeaderCell2" Text="°F"></asp:TableHeaderCell>
+                    </asp:TableHeaderRow>
+                </asp:Table>
+            </div>
 
 
         </div>
